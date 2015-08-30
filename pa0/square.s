@@ -19,12 +19,12 @@
 # It would be possible to use extern with an asm label in the header file and
 # name this whatever we want, but let's just leave it this way.
 
+# http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
+# First 6 integer/pointer args are passed in registers:
+#   rdi  rsi  rdx  rcx  r8  r9
+
+# Leaf function, all args fit in registers, no stack
 _square:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	movl	%edi, -4(%rbp)
-	movl	-4(%rbp), %edi
-	imull	-4(%rbp), %edi
-	movl	%edi, %eax
-	popq	%rbp
+	movl	%edi, %eax      # copy result to eax for return later
+	imull	%eax, %eax      # multiply it by itself
 	retq
