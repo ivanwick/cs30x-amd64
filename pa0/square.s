@@ -14,6 +14,11 @@
 # .global and .globl spellings both work
 	.global	_square
 
+# When clang emitted this function, it prepended the function name with a
+# leading underscore. http://stackoverflow.com/a/2628384
+# It would be possible to use extern with an asm label in the header file and
+# name this whatever we want, but let's just leave it this way.
+
 _square:
 	pushq	%rbp
 	movq	%rsp, %rbp
