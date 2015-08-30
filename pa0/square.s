@@ -1,24 +1,25 @@
-	.section	__TEXT,__text,regular,pure_instructions
-	.globl	_square
-	.align	4, 0x90
-_square:                                ## @square
-	.cfi_startproc
-## BB#0:
+# Building Mach-O binaries on Mac OS X
+# references:
+# https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/MachORuntime/
+# https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/Assembler/040-Assembler_Directives/asm_directives.html
+#
+# .section  segname , sectname [[[ , type ] , attribute ] , sizeof_stub ]
+# clang emitted:
+#	.section	__TEXT,__text,regular,pure_instructions
+#
+# But we can use the builtin directive .text as a shorthand
+	.text
+
+# Make this symbol visible from other object files during linking
+# .global and .globl spellings both work
+	.global	_square
+
+_square:
 	pushq	%rbp
-Ltmp2:
-	.cfi_def_cfa_offset 16
-Ltmp3:
-	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
-Ltmp4:
-	.cfi_def_cfa_register %rbp
 	movl	%edi, -4(%rbp)
 	movl	-4(%rbp), %edi
 	imull	-4(%rbp), %edi
 	movl	%edi, %eax
 	popq	%rbp
 	retq
-	.cfi_endproc
-
-
-.subsections_via_symbols
