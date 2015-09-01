@@ -10,8 +10,8 @@
 # of the right-most base digit). Then return the counter value.
 #
 # You can use the following assembler constants:
-# MIN_BASE = 2
-# MAX_BASE = 36
+	.set	MIN_BASE, 2
+	.set	MAX_BASE, 36
 #
 # Note: This module must handle positive and negative values. If you code it
 # correctly you should not have to add any additional code to account for
@@ -35,8 +35,8 @@ _numOfDigits:
 
 	# Function call to do a range check on the int base argument
 	movslq	%esi, %rdx # long value (do now because we overwrite %rsi below)
-	movq	$2, %rdi # long minRange
-	movq	$36, %rsi # long maxRange
+	movq	$MIN_BASE, %rdi # long minRange
+	movq	$MAX_BASE, %rsi # long maxRange
 	callq	_checkRange
 
 	movl	%eax, %ecx # move the return value aside
