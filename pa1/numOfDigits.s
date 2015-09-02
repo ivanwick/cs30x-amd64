@@ -42,7 +42,7 @@ _numOfDigits:
 	movl	%eax, %ecx # move the return value aside
 	movl	$-1, %eax # threaten to return -1 based on the comparison
 	cmpl	$0, %ecx
-	jz	end
+	jz	Lend
 
 	# get our saved arguments back into the registers
 	movq	-8(%rbp), %rdi # long num
@@ -52,9 +52,9 @@ _numOfDigits:
 	# %ecx is the counter in the loop below which we'll be returning
 	movl	$1, %eax
 	cmpq	$0, %rdi # passed in as 8-byte long
-	jz	end
+	jz	Lend
 
-loopinit:
+Lloopinit:
 	# Intiailize %rax to the num argument so that we can repeatedly idivq
 	# and it will put the result back into %rax.
 	movq	%rdi, %rax
@@ -66,9 +66,9 @@ loopinit:
 	# have the range check above).
 	movslq	%esi, %rsi
 
-loopcontinue:
+Lloopcontinue:
 	cmpq	$0, %rax
-	jz	loopfinish
+	jz	Lloopfinish
 
 	# Sign-extend %rax into oct word %rdx:%rax because idivq uses that.
 	# A previous wrong version zeroed-out %rdx here but it did not work
@@ -78,11 +78,11 @@ loopcontinue:
 	idivq	%rsi
 	incl	%ecx # we divided again so increment the counter
 
-	jmp	loopcontinue
+	jmp	Lloopcontinue
 
-loopfinish:
+Lloopfinish:
 	movl	%ecx, %eax
-end:
+Lend:
 	addq	$16, %rsp
 	popq	%rbp
 	retq
