@@ -59,8 +59,9 @@ int main(int argc, char* argv[])
     }
 
     for (parsed_i = 0; parsed_i < parsed_max; parsed_i++) {
-        if (!checkRange(parsed_arg[parsed_i],
-                       valid_range[parsed_i][0], valid_range[parsed_i][1])) {
+        if (!checkRange(valid_range[parsed_i][0], valid_range[parsed_i][1],
+                        parsed_arg[parsed_i])) {
+
             fprintf(stderr, "%ld needs to be within the range [%ld - %ld]\n",
                             parsed_arg[parsed_i],
                             valid_range[parsed_i][0], valid_range[parsed_i][1]);
