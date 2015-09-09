@@ -55,6 +55,32 @@ LtopBorder:
 LtopBorderEnd:
 
 
+	/* Pseudocode for the below loop:
+
+	counterB = size;
+	drawrep = 1;
+	step = 2;
+
+	while (counterB > 0) {
+	  bgrep = (size - drawrep) / 2;
+
+	  // print a row
+	  printCharRepeat(borderChar, numDigits);
+	  printCharRepeat(fillerChar, bgrep);
+	  printCharRepeat(diamondChar, drawrep);
+	  printCharRepeat(fillerChar, bgrep);
+	  printCharRepeat(borderChar, numDigits);
+	  printChar('\n');
+
+	  if (drawrep >= size) {
+	    step = step * -1;
+	  }
+	  drawrep += step;
+	  counterB -= 1;
+	}
+	*/
+
+
 	# Initialization:
 	# counterB = size
 	movq	-8(%rbp), %rax
